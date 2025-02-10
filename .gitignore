@@ -9,7 +9,6 @@ lerna-debug.log*
 puhelinluettelo
 
 node_modules
-dist
 dist-ssr
 *.local
 
