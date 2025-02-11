@@ -16,7 +16,7 @@ mongoose.connect(url);
 
 const personSchema = new mongoose.Schema({
   name: String,
-  number: Number,
+  number: String,
 });
 
 const Person = mongoose.model("Person", personSchema);
@@ -26,14 +26,17 @@ const person = new Person({
   number: number,
 });
 
-Person.save().then((result) => {
-  console.log("note saved!");
-  mongoose.connection.close();
-});
-
-Person.find({}).then((result) => {
-  result.forEach((person) => {
-    console.log(person);
+if (name)
+  person.save().then((result) => {
+    console.log(`added ${name} number ${number} to phonebook`);
+    mongoose.connection.close();
   });
-  mongoose.connection.close();
-});
+else {
+  Person.find({}).then((result) => {
+    console.log(`Phonebook:`);
+    result.forEach((person) => {
+      console.log(`${person.name} ${person.number}`);
+    });
+    mongoose.connection.close();
+  });
+}
